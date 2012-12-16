@@ -12,7 +12,9 @@ Gem::Specification.new do |gem|
   gem.summary       = %q{A command line tool for interacting with the Weather Underground API}
   gem.homepage      = ""
 
-  gem.add_runtime_dependency "rb_wunderground", "~> 0.1"
+  gem.add_runtime_dependency "rb_wunderground", "~> 0.1.1"
+  gem.add_runtime_dependency "thor"
+  gem.add_runtime_dependency "rainbow"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
