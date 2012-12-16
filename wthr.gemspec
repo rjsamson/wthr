@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["rjsamson@me.com"]
   gem.description   = %q{A command line tool for interacting with the Weather Underground API}
   gem.summary       = %q{A command line tool for interacting with the Weather Underground API}
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/rjsamson/wthr"
 
   gem.add_runtime_dependency "rb_wunderground", "~> 0.1.1"
   gem.add_runtime_dependency "thor"
