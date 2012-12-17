@@ -24,8 +24,10 @@ module Wthr
 
     desc "forecast [LOCATION]", "fetch and print the current forecast for the location provided for the number of days provided. Defaults to 3 days for location determined by IP."
     def forecast(location='autoip')
+      days_txt = []
       load_data(location)
-      days_txt = @forecast_and_conditions.forecast.txt_forecast.forecastday
+      days = @forecast_and_conditions.forecast.txt_forecast.forecastday
+      days.each_with_index { |d, i| days_txt << d if i%2 == 0 }
       days_data = @forecast_and_conditions.forecast.simpleforecast.forecastday
 
       puts format_forecast(days_txt, days_data)
@@ -43,7 +45,7 @@ module Wthr
       unless @forecast_and_conditions
         @dev_key ||= YAML.load_file(CONFIG_FILE)[:key]
         w = RbWunderground::Base.new(@dev_key)
-        @forecast_and_conditions = w.forecast_and_conditions(location)
+        @forecast_and_conditions = w.forecast10day_and_conditions(location)
       end
 
       @location = location_for(@forecast_and_conditions.current_observation)
@@ -56,8 +58,7 @@ module Wthr
 
     def format_forecast(days_txt, data)
       f = "Forecast for #{@location}\n"
-      days_txt.each_with_index do |day, index|
-        i = (index/2).floor
+      days_txt.each_with_index do |day, i|
         f << "#{day.title.underline} (High: #{high_temp(data[i])}, Low: #{low_temp(data[i])})\n"
         f << day.fcttext << "\n"
       end
