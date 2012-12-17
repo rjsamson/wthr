@@ -33,11 +33,19 @@ module Wthr
       puts format_forecast(days_txt, days_data)
     end
 
-    desc "conditions [LOCATION]", "fetch and print the current conditions for [LOCATION]"
-    def conditions(location='autoip')
+    desc "current [LOCATION]", "fetch and print the current conditions for [LOCATION]"
+    def current(location='autoip')
       load_data(location)
       current_conditions = @forecast_and_conditions.current_observation
       puts format_current_conditions(current_conditions)
+    end
+
+    desc "temps [LOCATION]", "fetch and print the just the highs / lows for the next 10 days"
+    def temps(location='autoip')
+      load_data(location)
+      days = @forecast_and_conditions.forecast.simpleforecast.forecastday
+
+      puts format_temps(days)
     end
 
     private
@@ -63,6 +71,14 @@ module Wthr
         f << day.fcttext << "\n"
       end
       f
+    end
+
+    def format_temps(days)
+      t = "High / Low Temps for #{@location}\n"
+      days.each do |day|
+        t << "#{day.date.weekday_short.underline}  (High: #{high_temp(day)}, Low: #{low_temp(day)})\n"
+      end
+      t
     end
 
     def location_for(conditions)
