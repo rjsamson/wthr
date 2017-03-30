@@ -13,8 +13,8 @@ Gem::Specification.new do |gem|
   gem.homepage      = "https://github.com/rjsamson/wthr"
 
   gem.add_runtime_dependency "rb_wunderground", "~> 0.1.2"
-  gem.add_runtime_dependency "thor"
-  gem.add_runtime_dependency "rainbow"
+  gem.add_runtime_dependency "thor", "~> 0.16.0"
+  gem.add_runtime_dependency "rainbow", "~> 1.1"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
